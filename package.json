@@ -1,0 +1,32 @@
+{
+  "name": "@prsm/from",
+  "version": "1.0.0",
+  "description": "Fluent query builder for filtering, transforming, and aggregating arrays of objects",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest --reporter=verbose --run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "nvms",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
