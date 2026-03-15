@@ -1,4 +1,8 @@
-# @prsm/from
+<p align="center">
+  <img src=".github/logo.svg" width="80" height="80" alt="from logo">
+</p>
+
+<h1 align="center">@prsm/from</h1>
 
 Fluent query builder for filtering, transforming, and aggregating arrays of objects. Zero dependencies.
 
