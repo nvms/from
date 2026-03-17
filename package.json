@@ -1,6 +1,6 @@
 {
   "name": "@prsm/from",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fluent query builder for filtering, transforming, and aggregating arrays of objects",
   "type": "module",
   "main": "dist/index.js",

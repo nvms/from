@@ -1,4 +1,4 @@
-import type { Operator } from "./types";
+import type { Operator } from "./types.js";
 
 export const eq = (expected: unknown): Operator<unknown> => (actual) => actual === expected;
 

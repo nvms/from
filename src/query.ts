@@ -1,8 +1,8 @@
-import { clone } from "./utils/clone";
-import { getPath, pickPaths, setPath, unsetPath } from "./utils/path";
-import type { PathOf, ValueAtPath } from "./types";
-import type { AggregateOp } from "./operators/aggregate";
-import type { Operator } from "./operators/types";
+import { clone } from "./utils/clone.js";
+import { getPath, pickPaths, setPath, unsetPath } from "./utils/path.js";
+import type { PathOf, ValueAtPath } from "./types.js";
+import type { AggregateOp } from "./operators/aggregate.js";
+import type { Operator } from "./operators/types.js";
 
 type SortOrder = "asc" | "desc";
 

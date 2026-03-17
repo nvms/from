@@ -1,4 +1,4 @@
-import type { Operator } from "./types";
+import type { Operator } from "./types.js";
 
 export const exists = (): Operator<unknown> => (actual) =>
   actual !== null && actual !== undefined;

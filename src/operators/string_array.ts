@@ -1,4 +1,4 @@
-import type { Operator } from "./types";
+import type { Operator } from "./types.js";
 
 export const includes = (expected: unknown): Operator<unknown> => (actual) => {
   if (typeof actual === "string") return actual.includes(String(expected));

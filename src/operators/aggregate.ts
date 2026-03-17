@@ -1,4 +1,4 @@
-import { getPath } from "../utils/path";
+import { getPath } from "../utils/path.js";
 
 export type AggregateOp = (item: unknown) => unknown;
 

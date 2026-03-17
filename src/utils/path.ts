@@ -1,4 +1,4 @@
-import { isRecord } from "./is_record";
+import { isRecord } from "./is_record.js";
 
 export type PathSegment = string | "*";
 
