@@ -164,3 +164,49 @@ describe("dot path access", () => {
     expect(result.map((p) => p.name).sort()).toEqual(["Jupiter", "Saturn"]);
   });
 });
+
+describe("wildcard where", () => {
+  const items = [
+    { name: "a", tags: ["red", "blue"] },
+    { name: "b", tags: ["green", "blue"] },
+    { name: "c", tags: ["red", "green"] },
+    { name: "d", tags: [] },
+  ];
+
+  test("matches items where any array element satisfies the operator", () => {
+    const result = from(items).where("tags.*", eq("red")).value();
+    expect(result.map((i) => i.name)).toEqual(["a", "c"]);
+  });
+
+  test("composes with other where clauses", () => {
+    const result = from(items)
+      .where("tags.*", eq("blue"))
+      .where("tags.*", eq("red"))
+      .value();
+    expect(result.map((i) => i.name)).toEqual(["a"]);
+  });
+
+  test("empty arrays never match", () => {
+    const result = from(items).where("tags.*", eq("red")).value();
+    expect(result.map((i) => i.name)).not.toContain("d");
+  });
+
+  test("works with nested wildcard paths", () => {
+    const nested = [
+      { name: "x", users: [{ role: "admin" }, { role: "viewer" }] },
+      { name: "y", users: [{ role: "viewer" }] },
+      { name: "z", users: [{ role: "admin" }] },
+    ];
+    const result = from(nested).where("users.*.role", eq("admin")).value();
+    expect(result.map((i) => i.name)).toEqual(["x", "z"]);
+  });
+
+  test("non-array at wildcard position matches nothing", () => {
+    const mixed = [
+      { name: "a", tags: "not-an-array" },
+      { name: "b", tags: ["red"] },
+    ];
+    const result = from(mixed).where("tags.*", eq("red")).value();
+    expect(result.map((i) => i.name)).toEqual(["b"]);
+  });
+});

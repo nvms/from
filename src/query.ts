@@ -14,7 +14,11 @@ const applyWhere = <T>(items: readonly T[], wheres: readonly WhereArg<T>[]): T[]
   items.filter((item) =>
     wheres.every((w) => {
       if (w.type === "predicate") return w.predicate(item);
-      return w.operator(getPath(item, w.path));
+      const val = getPath(item, w.path);
+      if (Array.isArray(val) && w.path.includes("*")) {
+        return val.some((v) => w.operator(v));
+      }
+      return w.operator(val);
     })
   );
 

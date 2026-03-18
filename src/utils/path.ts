@@ -11,14 +11,29 @@ export const parsePath = (path: string): PathSegment[] =>
 const getOwn = (value: unknown, key: string): unknown =>
   isRecord(value) ? value[key] : undefined;
 
+const getPathImpl = (value: unknown, segments: PathSegment[]): unknown => {
+  if (segments.length === 0) return value;
+
+  const [head, ...rest] = segments;
+  if (head === undefined) return value;
+
+  if (head === "*") {
+    if (!Array.isArray(value)) return [];
+    return value.flatMap((item) => {
+      const result = getPathImpl(item, rest);
+      return Array.isArray(result) && rest.includes("*") ? result : [result];
+    });
+  }
+
+  return getPathImpl(getOwn(value, head), rest);
+};
+
 export const getPath = (value: unknown, path: string): unknown => {
   const segments = parsePath(path);
-  if (segments.includes("*")) return undefined;
-
-  return segments.reduce<unknown>((acc, seg) => {
-    if (typeof seg !== "string") return undefined;
-    return getOwn(acc, seg);
-  }, value);
+  if (!segments.includes("*")) {
+    return segments.reduce<unknown>((acc, seg) => getOwn(acc, seg), value);
+  }
+  return getPathImpl(value, segments);
 };
 
 const setOnObject = (obj: Record<string, unknown>, key: string, next: unknown) => ({
