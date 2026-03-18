@@ -49,6 +49,10 @@ from(items).where("status", oneOf(["active", "pending"]))
 
 // custom predicate
 from(items).where((item) => item.score > item.threshold)
+
+// wildcard paths - match if any element satisfies the operator
+from(items).where("tags.*", eq("featured"))
+from(items).where("departments.*.members.*.skill", eq("rust"))
 ```
 
 ## Projection

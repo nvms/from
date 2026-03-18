@@ -201,6 +201,33 @@ describe("wildcard where", () => {
     expect(result.map((i) => i.name)).toEqual(["x", "z"]);
   });
 
+  test("double wildcard traverses nested arrays", () => {
+    const orgs = [
+      {
+        name: "acme",
+        departments: [
+          { team: "eng", members: [{ skill: "rust" }, { skill: "go" }] },
+          { team: "design", members: [{ skill: "figma" }] },
+        ],
+      },
+      {
+        name: "globex",
+        departments: [
+          { team: "eng", members: [{ skill: "python" }] },
+          { team: "ops", members: [{ skill: "terraform" }, { skill: "rust" }] },
+        ],
+      },
+      {
+        name: "initech",
+        departments: [
+          { team: "qa", members: [{ skill: "selenium" }] },
+        ],
+      },
+    ];
+    const result = from(orgs).where("departments.*.members.*.skill", eq("rust")).value();
+    expect(result.map((o) => o.name)).toEqual(["acme", "globex"]);
+  });
+
   test("non-array at wildcard position matches nothing", () => {
     const mixed = [
       { name: "a", tags: "not-an-array" },
