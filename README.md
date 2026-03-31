@@ -4,7 +4,7 @@
 
 <h1 align="center">@prsm/from</h1>
 
-Fluent query builder for filtering, transforming, and aggregating arrays of objects. Zero dependencies.
+Fluent query builder for filtering, transforming, and aggregating arrays of objects.
 
 ## Installation
 
